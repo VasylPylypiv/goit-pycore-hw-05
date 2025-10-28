@@ -16,6 +16,8 @@ def input_error(func):
 
 
 def parse_input(user_input):
+    if not user_input.strip():  # Якщо рядок порожній (після обрізки пробілів)
+        return None, []  # Повертаємо None і порожній список
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
     return cmd, *args
@@ -66,6 +68,10 @@ def main():
     while True:
         user_input = input("Enter a command: ")
         command, *args = parse_input(user_input)
+
+        if command is None:  # Якщо команда порожня
+            print("Please enter a valid command.")
+            continue  # Продовжуємо цикл без виконання подальшого коду
 
         if command in ["close", "exit"]:
             print("Good bye!")
